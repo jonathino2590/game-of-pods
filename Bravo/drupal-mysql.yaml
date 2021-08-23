@@ -23,7 +23,11 @@ spec:
           claimName: drupal-mysql-pvc
       containers:
       - image: mysql:5.7
-        name: mysql
+        name: cont-drupal-mysql
+        ports:
+          - containerPort: 3306 
+            name: mysql
+            protocol: TCP
 #        envFrom:
 #        - secretRef:
 #            name: drupal-mysql-secret        

@@ -18,7 +18,7 @@ spec:
         app: drupal
     spec:
       volumes:
-      - name: drupal-drupal-pv-storage
+      - name: drupal-pv-storage
         persistentVolumeClaim:
           claimName: drupal-pvc
       initContainers:
@@ -27,21 +27,25 @@ spec:
         command: ["/bin/bash","-c"]
         args: ["cp -r /var/www/html/sites/ /data/; chown www-data:www-data /data/ -R"]
         volumeMounts:
-        - name: drupal-drupal-pv-storage
+        - name: drupal-pv-storage
           mountPath: /data
       containers:
       - image: drupal:8.6
         name: drupal
+        ports:
+          - containerPort: 80
+            name: drupal
+            protocol: TCP        
         volumeMounts:
-        - name: drupal-drupal-pv-storage
+        - name: drupal-pv-storage
           mountPath: /var/www/html/modules
           subPath: modules
-        - name: drupal-drupal-pv-storage
+        - name: drupal-pv-storage
           mountPath: /var/www/html/themes
           subPath: themes
-        - name: drupal-drupal-pv-storage
+        - name: drupal-pv-storage
           mountPath: /var/www/html/profiles
           subPath: profiles
-        - name: drupal-drupal-pv-storage
+        - name: drupal-pv-storage
           mountPath: /var/www/html/sites
           subPath: sites

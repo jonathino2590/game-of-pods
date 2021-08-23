@@ -1,0 +1,12 @@
+
+kubectl get nodes
+ssh node01
+
+*drupal-pv-hostpath
+mkdir /drupal-data
+
+*drupal-mysql-pv-hostpath
+mkdir /drupal-mysql-data
+
+*drupal-mysql-secret
+kubectl create secret generic drupal-mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=root_password --from-literal=MYSQL_DATABASE=drupal-database --from-literal=MYSQL_USER=mysql
